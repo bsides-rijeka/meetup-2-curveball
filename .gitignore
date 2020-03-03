@@ -6,3 +6,6 @@ poc-impl/certs/cert.key
 poc-impl/certs/spoofed_ca.crt
 poc-impl/certs/spoofed_ca.key
 poc-impl/certs/spoofed_ca.srl
+poc-impl/examples/mitm/node_modules/**
+poc-impl/account.md
+poc-impl/examples/mitm/package-lock.json

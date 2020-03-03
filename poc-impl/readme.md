@@ -38,3 +38,7 @@ https://github.com/ollypwn/CurveBall
     * Driver signing
 * Implement whole process in c, so that we don't have to use `openssl` commands at all.
 * Reverse the fix to see how it was fixed
+
+## What to look for
+
+Login account: /_/signin/sl/challenge?hl=hr&_reqid=250726&rt=j
