@@ -1,5 +1,17 @@
 # Curveball
 
+## Preparation
+
+The CurveBall Windows 10 update needs to be uninstalled. To locate it:
+
+1. On the window system, go to your Start -> About Your PC
+2. Locate the Windows specifications -> Version field
+3. Go to https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-0601
+4. On the update table locate your version. The Article column is the KB number you are looking for (for instance KB4534273)
+5. Go to Start -> View Update History
+6. Click on Uninstall updates
+7. Uninstall the cumulative update under the KB number you found in step 4.
+
 ## Build POC
 
 ```

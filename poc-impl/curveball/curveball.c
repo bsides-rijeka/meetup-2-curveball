@@ -1,11 +1,18 @@
-#include "curveball.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <argp.h>
+#include <stdbool.h>
+#include <openssl/ssl.h>
 
 int main(int argc, char **argv)
 {
-    struct arguments arguments = { 0 };
-    argp_parse(&argp, argc, argv, 0, 0, &arguments);
+    if (argc < 2)
+    {
+        fprintf(stderr, "Missing argument 1: Missing certificate name\n");
+        exit(EXIT_FAILURE);
+    }
 
-    FILE *f = fopen(arguments.originalCertFileName, "r");
+    FILE *f = fopen(argv[1], "r");
     if (f == NULL)
     {
         perror("Error reading certificate");
@@ -13,10 +20,15 @@ int main(int argc, char **argv)
     }
 
     BIO *bio = BIO_new_fd(fileno(stdout), BIO_NOCLOSE);
-    
+
     X509 *cert = PEM_read_X509(f, NULL, NULL, NULL);
     EVP_PKEY *publicKey = X509_get0_pubkey(cert);
     EC_KEY *ecKey = EVP_PKEY_get0_EC_KEY(publicKey);
+
+    if (ecKey == NULL) {
+        fprintf(stderr, "Key is not Elliptic curve type.\n");
+        exit(EXIT_FAILURE);
+    }
 
     // Spoofing the certificate
 
@@ -39,33 +51,5 @@ int main(int argc, char **argv)
     BIO_flush(bio);
     BIO_free(bio);
     
-    return 0;
-}
-
-static error_t parse_option(int key, char *arg, struct argp_state *state)
-{
-    struct arguments *arguments = state->input;
-
-    switch(key)
-    {
-        case 's':
-            arguments->sign = true;
-            break;
-        case 't':
-            arguments->tls = true;
-            break;
-        case ARGP_KEY_ARG:
-            if (state->arg_num == 0)
-                arguments->originalCertFileName = arg;
-            else
-                argp_usage(state);
-            break;
-        case ARGP_KEY_END:
-            if (arguments->originalCertFileName == NULL)
-                argp_usage(state);
-            break;
-        default:
-            return ARGP_ERR_UNKNOWN;
-    }
     return 0;
 }
