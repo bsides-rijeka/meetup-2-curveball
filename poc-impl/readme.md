@@ -1,5 +1,10 @@
 # Curveball
 
+## References
+
+Props and respect goes to ollypwn, this POC is heavily based on his work. His repo:
+https://github.com/ollypwn/CurveBall
+
 ## Preparation
 
 The CurveBall Windows 10 update needs to be uninstalled. To locate it:
